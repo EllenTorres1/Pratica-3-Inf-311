@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Pratica 3 Mapa</string>
+    <string name="casa_Natal">Alvinópolis</string>
+    <string name="casa_Vicosa">Viçosa</string>
+    <string name="departamento">DPI</string>
+    <string name ="sair">Fechar aplicação</string>
+    <string name ="mostrar_localizacao">Mostrar minha localização </string>
+</resources>

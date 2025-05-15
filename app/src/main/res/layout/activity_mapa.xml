@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Mapa">
+
+    <Button
+        android:id="@+id/ButtonAlvinopolis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/casa_Natal"
+        android:onClick="onClick_Alvinopolis" />
+
+    <Button
+        android:id="@+id/ButtonVicosa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/ButtonAlvinopolis"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@id/ButtonAlvinopolis"
+        android:onClick="onClick_Vicosa"
+        android:text="@string/casa_Vicosa" />
+
+    <Button
+        android:id="@+id/ButtonDPI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/ButtonVicosa"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="-1dp"
+        android:layout_toEndOf="@id/ButtonVicosa"
+        android:onClick="onClick_DPI"
+        android:text="@string/departamento" />
+
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ButtonAlvinopolis"
+        android:layout_above="@id/buttonLocAtual" />
+
+    <Button
+        android:id="@+id/buttonLocAtual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        android:text="@string/mostrar_localizacao" />
+
+</RelativeLayout>
