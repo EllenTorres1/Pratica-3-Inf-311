@@ -33,13 +33,13 @@ public class BancoDados {
 
     private BancoDados(Context context) {
         db = context.openOrCreateDatabase(NOME_BANCO, Context.MODE_PRIVATE, null);
-        // Cria as tabelas caso não existam
+
         for (String script : SCRIPT_DATABASE_CREATE) {
             db.execSQL(script);
         }
         Log.i("BANCO_DADOS", "Banco criado ou aberto com sucesso.");
 
-        // Popula a tabela Localizacao se estiver vazia
+
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM Localizacao", null);
         if (cursor.moveToFirst()) {
             int count = cursor.getInt(0);
@@ -50,7 +50,7 @@ public class BancoDados {
         cursor.close();
     }
 
-    // Singleton: retorna a instância única do banco
+
     public static synchronized BancoDados getInstance(Context context) {
         if (instance == null) {
             instance = new BancoDados(context.getApplicationContext());
@@ -58,9 +58,9 @@ public class BancoDados {
         return instance;
     }
 
-    // Popula a tabela Localizacao com os três locais fixos
+
     private void popularLocalizacoes() {
-        inserirLocalizacao("Cidade Natal", -19.4333, -42.6300); // Alvinópolis
+        inserirLocalizacao("Cidade Natal", -19.4333, -42.6300);
         inserirLocalizacao("Viçosa", -20.7550, -42.8743);
         inserirLocalizacao("DPI/UFV", -20.7611, -42.8703);
         Log.i("BANCO_DADOS", "Tabela Localizacao populada com dados iniciais.");
@@ -76,7 +76,7 @@ public class BancoDados {
         return id;
     }
 
-    // Insere um log na tabela Log
+
     public long inserirLog(String msg, int idLocation) {
         ContentValues valores = new ContentValues();
         valores.put("msg", msg);
@@ -92,7 +92,7 @@ public class BancoDados {
         return id;
     }
 
-    // Busca id da localização pela descricao
+
     public int buscarIdLocationPorDescricao(String descricao) {
         int id = -1;
         Cursor c = null;
@@ -118,28 +118,28 @@ public class BancoDados {
         return idLocation;
     }
 
-    // Insere registro genérico
+
     public long inserir(String tabela, ContentValues valores) {
         long id = db.insert(tabela, null, valores);
         Log.i("BANCO_DADOS", "Inserido registro com id: " + id);
         return id;
     }
 
-    // Atualiza registro genérico
+
     public int atualizar(String tabela, ContentValues valores, String where, String[] whereArgs) {
         int count = db.update(tabela, valores, where, whereArgs);
         Log.i("BANCO_DADOS", "Atualizados " + count + " registros.");
         return count;
     }
 
-    // Deleta registro genérico
+
     public int deletar(String tabela, String where, String[] whereArgs) {
         int count = db.delete(tabela, where, whereArgs);
         Log.i("BANCO_DADOS", "Deletados " + count + " registros.");
         return count;
     }
 
-    // Busca dados genérico
+
     public Cursor buscar(String tabela, String[] colunas, String where, String[] whereArgs, String orderBy) {
         Cursor c = db.query(tabela, colunas, where, whereArgs, null, null, orderBy);
         Log.i("BANCO_DADOS", "Busca retornou " + c.getCount() + " registros.");
@@ -150,7 +150,7 @@ public class BancoDados {
     }
 
 
-    // Fecha o banco de dados
+
     public void fechar() {
         if (db != null && db.isOpen()) {
             db.close();

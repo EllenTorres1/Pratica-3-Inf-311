@@ -16,13 +16,13 @@ public class MainActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Inclui o item "Relatório" na lista de opções
+
         String[] menu = new String[]{
                 "Minha casa na cidade natal",
                 "Minha casa em Viçosa",
                 "Meu departamento",
-                "Relatório",          // Novo item adicionado
-                "Fechar aplicação"    // Agora é o índice 4
+                "Relatório",
+                "Fechar aplicação"
         };
 
         ArrayAdapter<String> arrayMenu = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, menu);
@@ -40,15 +40,13 @@ public class MainActivity extends ListActivity {
             Intent intent = new Intent(this, Relatorio.class);
             startActivity(intent);
         } else {
-            // Passo 2: Inserir log no banco
 
-            // Obtém id da localização no banco
             int idLocation = banco.getIdLocationByDescricao(pos);
 
             if (idLocation != -1) {
                 ContentValues valores = new ContentValues();
                 valores.put("msg", pos);
-                valores.put("timestamp", Instant.now().toString() + "");  // concatena com "" para virar String
+                valores.put("timestamp", Instant.now().toString() + "");
                 valores.put("idlocation", idLocation);
 
                 banco.inserir("Log", valores);

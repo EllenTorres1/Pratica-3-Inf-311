@@ -41,7 +41,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback {
         bancoDados = BancoDados.getInstance(this);
 
         Intent intent = getIntent();
-        localSelecionado = intent.getStringExtra("local"); // "alvinopolis", "vicosa", "dpi"
+        localSelecionado = intent.getStringExtra("local");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -64,7 +64,6 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback {
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
 
-        // Centraliza no local selecionado (agora buscando as coordenadas no banco)
         centralizarLocalInicial(localSelecionado);
     }
 
@@ -92,7 +91,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
-    // Centraliza o mapa buscando latitude e longitude no banco
+
     private void centralizarNoLocal(String descricaoLocal) {
         String[] colunas = {"latitude", "longitude"};
         Cursor c = bancoDados.buscar("Localizacao", colunas, "descricao = ?", new String[]{descricaoLocal}, null);
@@ -108,7 +107,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback {
         c.close();
     }
 
-    // Grava um log na tabela Log
+
     private void gravarLog(String descricaoLocal) {
         int idLocation = bancoDados.buscarIdLocationPorDescricao(descricaoLocal);
         if (idLocation != -1) {
@@ -118,7 +117,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
-    // Métodos que só chamam centralizar e gravar log, para serem usados nos cliques manuais do usuário (botões)
+
     public void onClick_Alvinopolis(View view) {
         centralizarNoLocal("Cidade Natal");
         gravarLog("Cidade Natal");
@@ -156,7 +155,7 @@ public class Mapa extends AppCompatActivity implements OnMapReadyCallback {
 
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(posicaoAtual, 17));
 
-                // Exemplo de distância até Viçosa no banco
+
                 Cursor c = bancoDados.buscar("Localizacao", new String[]{"latitude", "longitude"}, "descricao = ?", new String[]{"Viçosa"}, null);
                 if (c.moveToFirst()) {
                     double latVi = c.getDouble(c.getColumnIndexOrThrow("latitude"));
